@@ -1,14 +1,13 @@
 <?php
-
-require_once __DIR__ . "/PspTableDefinitions.php";
-
 /**
  * Author: Vadim L. Avramishin <avramishin@gmail.com>
  * Class to work with table "orders_flow"
  */
+
+require_once __DIR__ . "/PspTableDefinitions.php";
+
 class PspOrdersFlow extends PspOrdersFlowTable
 {
-
     /**
      * @return PspOrders
      */
@@ -16,5 +15,4 @@ class PspOrdersFlow extends PspOrdersFlowTable
     {
         return PspOrders::get($this->order_id);
     }
-
 }

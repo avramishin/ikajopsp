@@ -1,9 +1,9 @@
 <?php
-
 /**
  * Author: Vadim L. Avramishin <avramishin@gmail.com>
  * Class IkajoResponseHandler
  */
+
 class IkajoResponseHandler
 {
     protected $response;

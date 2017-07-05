@@ -1,12 +1,13 @@
 <?php
-use Respect\Validation\Validator as v;
-
-require_once __DIR__ . "/PspTableDefinitions.php";
-
 /**
  * Author: Vadim L. Avramishin <avramishin@gmail.com>
  * Class to work with table "orders"
  */
+
+use Respect\Validation\Validator as v;
+
+require_once __DIR__ . "/PspTableDefinitions.php";
+
 class PspOrders extends PspOrdersTable
 {
 
@@ -64,6 +65,4 @@ class PspOrders extends PspOrdersTable
 
         return substr(join("", $parts), 0, 16);
     }
-
-
 }

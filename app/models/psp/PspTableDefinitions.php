@@ -249,5 +249,4 @@ class PspOrdersFlowTable extends AirMySqlTable {
     {
         return call_user_func_array("parent::findRow", func_get_args());
     }
-
 }

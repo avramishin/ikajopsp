@@ -1,9 +1,9 @@
 <?php
-
 /**
  * Author: Vadim L. Avramishin <avramishin@gmail.com>
  * Air log
  */
+
 class AirLog
 {
     private $fp = false;
