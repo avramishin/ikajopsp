@@ -30,7 +30,7 @@ return [
         'cache' => false
     ],
 
-    'secret' => 'L71o/:E7J3:Fyp9hOn+q-/x0g(Q!-,n3|oyxb/CcFlb~UCU,<W?Ka3i*V;X~Fp9L',
+    'secret' => '',
     'timezone' => 'UTC',
 
     /**
