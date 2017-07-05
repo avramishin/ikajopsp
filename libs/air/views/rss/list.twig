@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Error Hook Notifications</title>
+        <description></description>
+        <link>{{ viewMsgUrl }}</link>
+        <pubDate>{{ pubDate }}</pubDate>
+        {% for message in items %}
+        <item>
+          <title><![CDATA[{{ message.subject }}]]></title>
+          <guid isPermaLink="true">{{ message.link }}</guid>
+          <link>{{ message.link }}</link>
+          <pubDate>{{ message.ts }}</pubDate>
+          <description><![CDATA[{{ message.body|raw }}]]></description>
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

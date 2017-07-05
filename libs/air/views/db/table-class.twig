@@ -1,0 +1,62 @@
+/**
+* Class: {{ tableClassName }}Table to work with table "{{ tableName }}".
+* THIS CLASS WAS AUTOMATICALLY GENERATED. ALL MANUAL CHANGES WILL BE LOST!
+* PUT YOUR CODE TO CLASS "{{ tableClassName }}" INSTEAD.
+*/
+class {{ tableClassName }}Table extends AirMySqlTable {
+
+    static $fields;
+    static $tablename = '{{ tableName }}';
+    static $dbconfig = '{{ dbConfigName }}';
+    static $pk = [{{ pk|join(',')|raw }}];
+
+{% for field in tableInfo %}
+
+    /**
+    * Field: {{ tableName }}.{{ field.Field }} mysql type {{ field.Type|raw }}
+    * @var {{ field.PhpType }}
+    */
+    {% if field.Default %}
+public ${{ field.Field }} = {{ field.Default|raw }};
+    {% else %}
+public ${{ field.Field }};
+    {% endif %}
+{% endfor %}
+
+    /**
+    * @param mixed $id
+    * @return {{ tableClassName }}
+    */
+    static function get($id)
+    {
+        return call_user_func_array("parent::get", func_get_args());
+    }
+
+    /**
+    * @param string $sort_field
+    * @return {{ tableClassName }}[]
+    */
+    static function getAll($sort_field = null)
+    {
+        return parent::getAll($sort_field);
+    }
+
+    /**
+    * @param string $where Where clause. For example A::find('id = ?', $id)
+    * @return {{ tableClassName }}[]
+    */
+    static function find($where)
+    {
+        return call_user_func_array("parent::find", func_get_args());
+    }
+
+    /**
+    * @param string $where Where clause. For example A::findRow('id = ?', $id)
+    * @return {{ tableClassName }}
+    */
+    static function findRow($where)
+    {
+        return call_user_func_array("parent::findRow", func_get_args());
+    }
+
+}
