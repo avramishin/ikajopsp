@@ -41,7 +41,7 @@ try {
     $order->insert();
 
     $log->writeLn("Order ID={$order->id} created");
-
+/*
     $hashParts = [
         strrev($order->payer_email),
         cfg()->ikajo->clientPass,
@@ -125,7 +125,7 @@ try {
             ]
         ];
     }
-
+*/
     $response->send();
 
 } catch (Exception $e) {
