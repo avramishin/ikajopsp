@@ -1,0 +1,22 @@
+<div style="height: 10px"></div>
+<table id="flow"></table>
+<script>
+    $(function () {
+        app.flowGrid = $('#flow');
+        app.flowGrid.datagrid({
+            height: 300,
+            url: '{{ url("admin/orders/flow") }}',
+            pagination: false,
+            fitColumns: true,
+            pageSize: 30,
+            singleSelect: true,
+            columns: [[
+                {field: 'create_at', title: 'Time', width: 100},
+                {field: 'order_id', title: 'Order ID', width: 80},
+                {field: 'result', title: 'Result', width: 80},
+                {field: 'status', title: 'Status', width: 80},
+                {field: 'descriptor', title: 'Descriptor', width: 160}
+            ]]
+        });
+    });
+</script>

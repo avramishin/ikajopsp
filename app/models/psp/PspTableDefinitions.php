@@ -203,16 +203,40 @@ class PspOrdersFlowTable extends AirMySqlTable {
     public $order_id;
     
     /**
+    * Field: orders_flow.result mysql type varchar(100)
+    * @var string
+    */
+    public $result;
+    
+    /**
+    * Field: orders_flow.status mysql type varchar(100)
+    * @var string
+    */
+    public $status;
+    
+    /**
+    * Field: orders_flow.trans_id mysql type varchar(100)
+    * @var string
+    */
+    public $trans_id;
+    
+    /**
+    * Field: orders_flow.descriptor mysql type varchar(500)
+    * @var string
+    */
+    public $descriptor;
+    
+    /**
     * Field: orders_flow.details mysql type text
     * @var string
     */
     public $details;
     
     /**
-    * Field: orders_flow.create_ts mysql type datetime
+    * Field: orders_flow.create_at mysql type datetime
     * @var string
     */
-    public $create_ts;
+    public $create_at;
     
     /**
     * @param mixed $id
@@ -249,4 +273,5 @@ class PspOrdersFlowTable extends AirMySqlTable {
     {
         return call_user_func_array("parent::findRow", func_get_args());
     }
+
 }

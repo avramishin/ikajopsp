@@ -1,9 +1,9 @@
 <?php
+
 /**
  * Author: Vadim L. Avramishin <avramishin@gmail.com>
  * Class IkajoResponseHandler
  */
-
 class IkajoResponseHandler
 {
     protected $response;
@@ -84,8 +84,20 @@ class IkajoResponseHandler
         if ($order = $this->getOrder()) {
             $orderFlow = new PspOrdersFlow();
             $orderFlow->order_id = $order->id;
+            $orderFlow->result = !empty($this->response->result) ? $this->response->result : 'NA';
+            $orderFlow->status = !empty($this->response->status) ? $this->response->status : 'NA';
+            $orderFlow->trans_id = !empty($this->response->trans_id) ? $this->response->trans_id : 'NA';
+
+            if (!empty($this->response->descriptor)) {
+                $orderFlow->descriptor = $this->response->descriptor;
+            } elseif ($this->response->decline_reason) {
+                $orderFlow->descriptor = $this->response->decline_reason;
+            } else {
+                $orderFlow->descriptor = 'NA';
+            }
+
             $orderFlow->details = json_encode($this->response);
-            $orderFlow->create_ts = dbtime();
+            $orderFlow->create_at = dbtime();
             $orderFlow->insert();
         }
 

@@ -223,7 +223,8 @@ class AirMySqlQuery
      * Begin new transaction
      * @return AirMySqlQuery
      */
-    public function begin(){
+    public function begin()
+    {
         return $this->query('BEGIN')->exec();
     }
 
@@ -231,7 +232,8 @@ class AirMySqlQuery
      * Commit transaction
      * @return AirMySqlQuery
      */
-    public function commit(){
+    public function commit()
+    {
         return $this->query('COMMIT')->exec();
     }
 
@@ -239,7 +241,8 @@ class AirMySqlQuery
      * Rollback transaction
      * @return AirMySqlQuery
      */
-    public function rollback(){
+    public function rollback()
+    {
         return $this->query('ROLLBACK')->exec();
     }
 
@@ -272,6 +275,12 @@ class AirMySqlQuery
         $args = func_get_args();
         $args[0] = 'DELETE FROM ' . $table;
         $this->queryArgs($args);
+        return $this;
+    }
+
+    public function orderBy($condition)
+    {
+        $this->query('ORDER BY ' . $condition);
         return $this;
     }
 

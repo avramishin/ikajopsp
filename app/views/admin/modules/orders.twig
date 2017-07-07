@@ -1,0 +1,72 @@
+<table id="orders"></table>
+<div id="orders-toolbar" style="padding:2px 5px;">
+    <form>
+        <b>Search Query:</b> <input class="easyui-textbox tb-query" style="width:250px">
+        <b>Status:</b>
+        <select class="easyui-combobox tb-status" panelHeight="auto" style="width:100px">
+            <option value="">ANY</option>
+            <option value="PENDING">PENDING</option>
+            <option value="SETTLED">SETTLED</option>
+            <option value="DECLINED">DECLINED</option>
+            <option value="3DS">3DS</option>
+            <option value="INIT">INIT</option>
+        </select>
+        <button type="submit" class="easyui-linkbutton">Search</button>
+    </form>
+</div>
+<script>
+    $(function () {
+        var toolbar = $('#orders-toolbar');
+        app.ordersGrid = $('#orders');
+        app.ordersGrid.datagrid({
+            height: 290,
+            url: '{{ url("admin/orders/list") }}',
+            pagination: true,
+            fitColumns: true,
+            pageSize: 30,
+            singleSelect: true,
+            onSelect: function (index, row) {
+                var propertyGridData = [];
+                $.each(row, function (key, value) {
+                    propertyGridData.push({
+                        name: key.replace('_', " "),
+                        value: value
+                    });
+                });
+                app.detailsPropertyGrid.datagrid({
+                    data: propertyGridData
+                });
+
+                app.flowGrid.datagrid({
+                        queryParams: {
+                            order_id: row['id']
+                        }
+                    }
+                );
+            },
+            onLoadSuccess: function () {
+                app.ordersGrid.datagrid('selectRow', 0);
+            },
+            toolbar: toolbar,
+            columns: [[
+                {field: 'create_at', title: 'Time', width: 100},
+                {field: 'payer_firstname', title: 'Firstname', width: 100},
+                {field: 'payer_lastname', title: 'Lastname', width: 100},
+                {field: 'amount', title: 'Amount', width: 80},
+                {field: 'currency', title: 'Currency', width: 60},
+                {field: 'status', title: 'Status', width: 120}
+            ]]
+        });
+
+        toolbar.find('form').submit(function () {
+            app.ordersGrid.datagrid({
+                queryParams: {
+                    query: toolbar.find('.tb-query').val(),
+                    status: toolbar.find('.tb-status').val()
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
