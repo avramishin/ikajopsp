@@ -42,12 +42,22 @@ class IkajoResponseHandler
     function getRedirect()
     {
         if (!empty($this->response->redirect_url)) {
-            $args = !empty($this->response->redirect_params) ? $this->response->redirect_params : [];
-            $args = http_build_query($args);
-            return "{$this->response->redirect_url}?{$args}";
+
+            $params = [];
+            foreach ($this->response->redirect_params as $name => $value) {
+                $params[] = [
+                    "name" => $name,
+                    "value" => $value
+                ];
+            }
+
+            return [
+                'url' => $this->response->redirect_url,
+                'params' => $params
+            ];
         }
 
-        return "";
+        return false;
     }
 
     /**

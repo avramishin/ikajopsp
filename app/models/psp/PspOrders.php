@@ -27,9 +27,9 @@ class PspOrders extends PspOrdersTable
             "payer_zip" => v::length(2, 32),
             "payer_email" => v::email(),
             "payer_phone" => v::length(1, 32),
-            "payer_ip" => v::length(15, 15),
+            "payer_ip" => v::notEmpty(),
             "status" => v::notEmpty(),
-            "hash_p1" => v::length(16, 16),
+            "hash_p1" => v::length(10, 10),
             "create_at" => v::date('Y-m-d H:i:s'),
             "update_at" => v::date('Y-m-d H:i:s')
         ];

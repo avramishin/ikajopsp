@@ -6,7 +6,6 @@
 use Respect\Validation\Validator as v;
 
 $log = new AirLog(storage_path("logs/debug/" . date('Y-m-d') . "/ikajo/sale/create.log"));
-$response = new AirJsonResponse();
 
 try {
 
@@ -19,7 +18,7 @@ try {
     $order->id = PspOrders::generateUUID();
     $order->channel_id = r('channel_id', cfg()->ikajo->defaultChannelId);
     $order->currency = r('currency', cfg()->ikajo->defaultCurrency);
-    $order->amount = r('amount');
+    $order->amount = sprintf("%.2f", r('amount'));
     $order->description = r('description');
     $order->payer_firstname = r('payer_firstname');
     $order->payer_lastname = r('payer_lastname');
@@ -37,11 +36,12 @@ try {
     $order->hash_p1 = strrev(substr(r('card_number'), 0, 6) . substr(r('card_number'), -4));
     $order->create_at = dbtime();
     $order->update_at = dbtime();
+
     $order->validate();
     $order->insert();
 
     $log->writeLn("Order ID={$order->id} created");
-/*
+
     $hashParts = [
         strrev($order->payer_email),
         cfg()->ikajo->clientPass,
@@ -96,7 +96,8 @@ try {
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, cfg()->ikajo->billingUrl);
-    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
@@ -107,32 +108,33 @@ try {
         throw new Exception($error);
     }
 
-    if ($json = json_decode($data)) {
+    if (!$json = json_decode($data)) {
         throw new Exception("Request object is empty");
     }
 
-    if (empty($json->action) || empty($json->result)) {
+    if (empty($json->result)) {
         throw new Exception("Invalid request object");
+    }
+
+    if ($json->result == 'ERROR') {
+        throw new Exception($json->error_message);
     }
 
     $handler = new IkajoResponseHandler($json, $checkHash = false);
 
     if ($redirect = $handler->getRedirect()) {
-        $response->data = [
-            'redirect' => [
-                'url' => $redirect,
-                'method' => $handler->getRedirectMethod()
-            ]
-        ];
+        echo view("3ds/redirect", [
+            'action' => $redirect['url'],
+            'method' => $handler->getRedirectMethod(),
+            'params' => $redirect['params']
+        ]);
+    } else {
+        header("location: " . r('success_url'));
+
     }
-*/
-    $response->send();
 
 } catch (Exception $e) {
-
     $log->writeLn($e->getMessage());
     $log->writeLn($e->getTraceAsString());
-
-    $response->notify($e->getMessage(), 'error');
-    $response->error($e->getMessage());
+    header("location: " . r('error_url') . "?" . http_build_query(['msg' => $e->getMessage()]));
 }

@@ -23,6 +23,14 @@ try {
     $controllerFound = false;
     foreach ($controllers as $controller) {
         if (file_exists($controller)) {
+
+            header("Access-Control-Allow-Origin: *");
+            header("Access-Control-Allow-Headers: *");
+
+            if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+                exit();
+            }
+
             require $controller;
             $controllerFound = true;
             break;

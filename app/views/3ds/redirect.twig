@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Please wait ...</title>
+    <script>
+        window.onload = function () {
+            document.getElementById("redirect").submit();
+        };
+    </script>
+</head>
+<body>
+<form id="redirect" action="{{ action }}" method="{{ method }}">
+    {% for param in params %}
+        <input type="hidden" name="{{ param.name }}" value="{{ param.value }}">
+    {% endfor %}
+</form>
+</body>
+</html>
