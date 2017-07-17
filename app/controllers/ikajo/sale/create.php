@@ -123,7 +123,7 @@ try {
     $handler = new IkajoResponseHandler($json, $checkHash = false);
 
     if ($redirect = $handler->getRedirect()) {
-        echo view("3ds/redirect", [
+        echo view("3ds/redirect.twig", [
             'action' => $redirect['url'],
             'method' => $handler->getRedirectMethod(),
             'params' => $redirect['params']
