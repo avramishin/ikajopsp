@@ -132,12 +132,12 @@ try {
             'params' => $redirect['params']
         ]);
     } else {
-        header("location: " . r('success_url'));
+        header("location: " . $successUrl);
 
     }
 
 } catch (Exception $e) {
     $log->writeLn($e->getMessage());
     $log->writeLn($e->getTraceAsString());
-    header("location: " . r('error_url') . "?" . http_build_query(['msg' => $e->getMessage()]));
+    header("location: " . $errorUrl . "?" . http_build_query(['msg' => $e->getMessage()]));
 }
