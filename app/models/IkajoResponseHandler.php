@@ -7,6 +7,7 @@
 class IkajoResponseHandler
 {
     protected $response;
+    protected $status;
 
     function __construct($response, $checkHash = false)
     {
@@ -30,9 +31,21 @@ class IkajoResponseHandler
                 ->saveOrderFlow()
                 ->getOrder()
                 ->setStatus($this->response->status);
+            $this->status = $this->response->status;
         } else {
             throw new Exception("Unexpected result {$this->response->result}");
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    function getStatus(){
+        return $this->status;
+    }
+
+    function getDeclineReason(){
+        return $this->response->decline_reason;
     }
 
     /**

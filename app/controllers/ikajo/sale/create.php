@@ -131,9 +131,10 @@ try {
             'method' => $handler->getRedirectMethod(),
             'params' => $redirect['params']
         ]);
+    } elseif ($handler->getStatus() == 'DECLINED'){
+        throw new Exception($handler->getDeclineReason());
     } else {
         header("location: " . $successUrl);
-
     }
 
 } catch (Exception $e) {
