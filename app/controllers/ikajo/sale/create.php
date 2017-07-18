@@ -11,6 +11,9 @@ try {
 
     $log->writeLn(json_encode($_REQUEST, JSON_PRETTY_PRINT));
 
+    $errorUrl = r('error_url', url("ikajo/error"));
+    $successUrl = r('success_url', url("ikajo/success"));
+
     /**
      * Create and insert order
      */
