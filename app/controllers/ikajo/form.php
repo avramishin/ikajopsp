@@ -14,7 +14,7 @@
     <table>
         <tr>
             <td>Amount</td>
-            <td><input type="text" name="amount" value="10.00"/></td>
+            <td><input type="text" name="order_amount" value="10.00"/></td>
         </tr>
         <tr>
             <td>Description</td>

@@ -20,9 +20,9 @@ try {
     $order = new PspOrders();
     $order->id = PspOrders::generateUUID();
     $order->channel_id = r('channel_id', cfg()->ikajo->defaultChannelId);
-    $order->currency = r('currency', cfg()->ikajo->defaultCurrency);
-    $order->amount = sprintf("%.2f", r('amount'));
-    $order->description = r('description');
+    $order->currency = r('order_currency', cfg()->ikajo->defaultCurrency);
+    $order->amount = sprintf("%.2f", r('order_amount'));
+    $order->description = r('description', "Order payment");
     $order->payer_firstname = r('payer_firstname');
     $order->payer_lastname = r('payer_lastname');
     $order->payer_address = r('payer_address');
