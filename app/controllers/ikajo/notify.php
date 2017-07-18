@@ -8,6 +8,8 @@ $log = new AirLog(storage_path("logs/debug/" . date('Y-m-d') . "/ikajo/notify.lo
 
 try {
 
+    $log->writeLn(print_r($_REQUEST, true));
+
     if (!$request = file_get_contents('php://input')) {
         throw new Exception("Request body is empty");
     }
