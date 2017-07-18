@@ -23,8 +23,8 @@ try {
     $order->currency = r('order_currency', cfg()->ikajo->defaultCurrency);
     $order->amount = sprintf("%.2f", r('order_amount'));
     $order->description = r('description', "Order payment");
-    $order->payer_firstname = r('payer_firstname');
-    $order->payer_lastname = r('payer_lastname');
+    $order->payer_firstname = r('payer_first_name');
+    $order->payer_lastname = r('payer_last_name');
     $order->payer_address = r('payer_address');
     $order->payer_country = r('payer_country');
     $order->payer_state = r('payer_state');

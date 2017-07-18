@@ -22,11 +22,11 @@
         </tr>
         <tr>
             <td>Payer firstname</td>
-            <td><input type="text" name="payer_firstname" value="Donald"/></td>
+            <td><input type="text" name="payer_first_name" value="Donald"/></td>
         </tr>
         <tr>
             <td>Payer lastname</td>
-            <td><input type="text" name="payer_lastname" value="Trump"/></td>
+            <td><input type="text" name="payer_last_name" value="Trump"/></td>
         </tr>
         <tr>
             <td>Payer address</td>
