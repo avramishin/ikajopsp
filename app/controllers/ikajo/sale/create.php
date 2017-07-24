@@ -33,6 +33,8 @@ try {
     $order->payer_email = r('payer_email');
     $order->payer_phone = r('payer_phone');
     $order->payer_ip = $_SERVER['REMOTE_ADDR'];
+    $order->error_url = $errorUrl;
+    $order->success_url = $successUrl;
     $order->status = 'INIT';
     $order->async = 'N';
     $order->auth = 'N';

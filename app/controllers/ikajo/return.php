@@ -21,5 +21,10 @@ try {
 } catch (Exception $e) {
     $log->writeLn($e->getMessage());
     $log->writeLn($e->getTraceAsString());
-    echo $e->getMessage();
+
+    if (!empty($order->error_url)) {
+        header("location: " . $order->error_url . "?" . http_build_query(['msg' => $e->getMessage()]));
+    } else {
+        header("location: " . url("ikajo/error", ['msg' => $e->getMessage()]));
+    }
 }

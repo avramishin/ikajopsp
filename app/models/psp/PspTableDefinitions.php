@@ -128,6 +128,18 @@ class PspOrdersTable extends AirMySqlTable {
     public $hash_p1;
     
     /**
+    * Field: orders.error_url mysql type varchar(500)
+    * @var string
+    */
+    public $error_url;
+    
+    /**
+    * Field: orders.success_url mysql type varchar(500)
+    * @var string
+    */
+    public $success_url;
+    
+    /**
     * Field: orders.create_at mysql type datetime
     * @var string
     */
