@@ -93,7 +93,9 @@ try {
         'payer_email' => $order->payer_email,
         'payer_phone' => $order->payer_phone,
         'payer_ip' => $order->payer_ip,
-        'term_url_3ds' => url('ikajo/notify'),
+        'term_url_3ds' => url('ikajo/return', [
+            'id' => $order->id
+        ]),
         'hash' => md5(strtoupper(join('', $hashParts)))
     ];
 

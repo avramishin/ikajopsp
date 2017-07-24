@@ -78,18 +78,34 @@ class PspOrders extends PspOrdersTable
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
         $data = curl_exec($ch);
-        return $data;
+        $response = @json_decode($data);
+
+        if (empty($response->result)) {
+            throw new Exception("Unexpected result: {$data}");
+        }
+
+        if ($response->result != 'SUCCESS') {
+            throw new Exception("Response result {$response->result}");
+        }
+
+        if (empty($response->status)) {
+            throw new Exception("Response status is empty");
+        }
+
+        return $response->status;
     }
 
     public function getTransId()
     {
         $orderFlow = PspOrdersFlow::findRow('order_id = ?', $this->id);
-        if ($orderFlow) {
-            return $orderFlow->trans_id;
+
+        if (!$orderFlow) {
+            throw new Exception("Order flow not found!");
         }
 
-        return "";
+        return $orderFlow->trans_id;
     }
 
     /**
