@@ -18,6 +18,7 @@ try {
 
     echo $status;
 
+
 } catch (Exception $e) {
     $log->writeLn($e->getMessage());
     $log->writeLn($e->getTraceAsString());
