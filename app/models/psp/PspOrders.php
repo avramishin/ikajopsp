@@ -52,6 +52,46 @@ class PspOrders extends PspOrdersTable
         $this->update();
     }
 
+    public function getRemoteStatus()
+    {
+        $transId = $this->getTransId();
+
+        $hashParts = [
+            strrev($this->payer_email),
+            cfg()->ikajo->clientPass,
+            $transId,
+            $this->hash_p1
+        ];
+
+        $payload = [
+            'action' => 'GET_TRANS_STATUS',
+            'client_key' => cfg()->ikajo->clientKey,
+            'trans_id' => $transId,
+            'hash' => md5(strtoupper(join('', $hashParts)))
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, cfg()->ikajo->billingUrl);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        $data = curl_exec($ch);
+        return $data;
+    }
+
+    public function getTransId()
+    {
+        $orderFlow = PspOrdersFlow::findRow('order_id = ?', $this->id);
+        if ($orderFlow) {
+            return $orderFlow->trans_id;
+        }
+
+        return "";
+    }
+
     /**
      * Generate 16-digit UUID for order id
      * @return string
