@@ -1,0 +1,1 @@
+ALTER TABLE `psp`.`orders` ADD COLUMN `error_url` VARCHAR(500) NULL AFTER `hash_p1`, ADD COLUMN `success_url` VARCHAR(500) NULL AFTER `error_url`; 
