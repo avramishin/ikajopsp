@@ -14,7 +14,10 @@ try {
         throw new Exception("Order not found!");
     }
 
-    $status = $order->getRemoteStatus();
+    if($status = $order->getRemoteStatus()){
+        $order->setStatus($status);
+    }
+
     if ($status == 'SETTLED') {
         header("location: " . $order->success_url);
     } else {
