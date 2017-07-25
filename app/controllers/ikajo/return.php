@@ -15,9 +15,11 @@ try {
     }
 
     $status = $order->getRemoteStatus();
-
-    echo $status;
-
+    if ($status == 'SETTLED') {
+        header("location: " . $order->success_url);
+    } else {
+        throw new Exception("Payment status: {$status}");
+    }
 
 } catch (Exception $e) {
     $log->writeLn($e->getMessage());
