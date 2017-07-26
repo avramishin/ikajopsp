@@ -27,7 +27,7 @@ try {
     $order->payer_lastname = r('payer_last_name');
     $order->payer_address = r('payer_address');
     $order->payer_country = r('payer_country');
-    $order->payer_state = r('payer_state', 'XX');
+    $order->payer_state = r('payer_state', 'NA');
     $order->payer_city = r('payer_city');
     $order->payer_zip = r('payer_zip');
     $order->payer_email = r('payer_email');
