@@ -123,6 +123,7 @@ try {
     }
 
     if (!$json = json_decode($data)) {
+        $log->writeLn($data);
         throw new Exception("Request object is empty");
     }
 
