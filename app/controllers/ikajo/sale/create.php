@@ -14,13 +14,19 @@ try {
     $errorUrl = r('error_url', url("ikajo/error"));
     $successUrl = r('success_url', url("ikajo/success"));
 
+    $clientId = r('client_id', cfg()->defaultClientId);
+
+    if (!$client = PspClients::get($clientId)) {
+        throw new Exception('Client not found!');
+    }
+
     /**
      * Create and insert order
      */
     $order = new PspOrders();
     $order->id = PspOrders::generateUUID();
-    $order->channel_id = r('channel_id', cfg()->ikajo->defaultChannelId);
-    $order->currency = r('order_currency', cfg()->ikajo->defaultCurrency);
+    $order->channel_id = r('channel_id', $client->default_channel_id);
+    $order->currency = r('order_currency', $client->default_currency);
     $order->amount = sprintf("%.2f", r('order_amount'));
     $order->description = r('description', "Order payment");
     $order->payer_firstname = r('payer_first_name');
@@ -41,6 +47,7 @@ try {
     $order->hash_p1 = strrev(substr(r('card_number'), 0, 6) . substr(r('card_number'), -4));
     $order->create_at = dbtime();
     $order->update_at = dbtime();
+    $order->client_id = $client->id;
 
     $order->validate();
     $order->insert();
@@ -49,7 +56,7 @@ try {
 
     $hashParts = [
         strrev($order->payer_email),
-        cfg()->ikajo->clientPass,
+        $client->client_pass,
         $order->hash_p1
     ];
 
@@ -76,7 +83,7 @@ try {
 
     $payload = [
         'action' => 'SALE',
-        'client_key' => cfg()->ikajo->clientKey,
+        'client_key' => $client->client_key,
         'order_id' => $order->id,
         'order_amount' => $order->amount,
         'order_currency' => $order->currency,
@@ -102,7 +109,7 @@ try {
     ];
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, cfg()->ikajo->billingUrl);
+    curl_setopt($ch, CURLOPT_URL, cfg()->billingUrl);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

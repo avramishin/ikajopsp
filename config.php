@@ -15,14 +15,6 @@ return [
         ]
     ],
 
-    'ikajo' => [
-        'defaultChannelId' => null,
-        'defaultCurrency' => 'USD',
-        'clientKey' => '',
-        'clientPass' => '',
-        'billingUrl' => ''
-    ],
-
     'baseurl' => 'http://127.0.0.1:8000',
     'subDir' => '',
 
@@ -32,6 +24,8 @@ return [
 
     'secret' => '',
     'timezone' => 'UTC',
+    'billingUrl' => 'https://secure.payinspect.com/paymentgw/PayTechniqueCreditCardService.wsdl',
+    'defaultClientId' => 'b4markets',
 
     /**
      * User access token expires in 2 weeks

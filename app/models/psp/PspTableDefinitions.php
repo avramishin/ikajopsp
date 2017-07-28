@@ -1,6 +1,87 @@
 <?php 
 
 /**
+* Class: PspClientsTable to work with table "clients".
+* THIS CLASS WAS AUTOMATICALLY GENERATED. ALL MANUAL CHANGES WILL BE LOST!
+* PUT YOUR CODE TO CLASS "PspClients" INSTEAD.
+*/
+class PspClientsTable extends AirMySqlTable {
+
+    static $fields;
+    static $tablename = 'clients';
+    static $dbconfig = 'psp';
+    static $pk = ['id'];
+
+
+    /**
+    * Field: clients.id mysql type varchar(25)
+    * @var string
+    */
+    public $id;
+    
+    /**
+    * Field: clients.client_key mysql type varchar(100)
+    * @var string
+    */
+    public $client_key;
+    
+    /**
+    * Field: clients.client_pass mysql type varchar(100)
+    * @var string
+    */
+    public $client_pass;
+    
+    /**
+    * Field: clients.default_currency mysql type varchar(3)
+    * @var string
+    */
+    public $default_currency = 'USD';
+    
+    /**
+    * Field: clients.default_channel_id mysql type varchar(50)
+    * @var string
+    */
+    public $default_channel_id;
+    
+    /**
+    * @param mixed $id
+    * @return PspClients
+    */
+    static function get($id)
+    {
+        return call_user_func_array("parent::get", func_get_args());
+    }
+
+    /**
+    * @param string $sort_field
+    * @return PspClients[]
+    */
+    static function getAll($sort_field = null)
+    {
+        return parent::getAll($sort_field);
+    }
+
+    /**
+    * @param string $where Where clause. For example A::find('id = ?', $id)
+    * @return PspClients[]
+    */
+    static function find($where)
+    {
+        return call_user_func_array("parent::find", func_get_args());
+    }
+
+    /**
+    * @param string $where Where clause. For example A::findRow('id = ?', $id)
+    * @return PspClients
+    */
+    static function findRow($where)
+    {
+        return call_user_func_array("parent::findRow", func_get_args());
+    }
+
+}
+
+/**
 * Class: PspOrdersTable to work with table "orders".
 * THIS CLASS WAS AUTOMATICALLY GENERATED. ALL MANUAL CHANGES WILL BE LOST!
 * PUT YOUR CODE TO CLASS "PspOrders" INSTEAD.
@@ -138,6 +219,12 @@ class PspOrdersTable extends AirMySqlTable {
     * @var string
     */
     public $success_url;
+    
+    /**
+    * Field: orders.client_id mysql type varchar(25)
+    * @var string
+    */
+    public $client_id;
     
     /**
     * Field: orders.create_at mysql type datetime

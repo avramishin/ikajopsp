@@ -7,10 +7,10 @@
     <title>Payment Form</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-   </head>
+</head>
 <body>
 <h3>Test Payment</h3>
-<form action="<?=url("ikajo/sale/create")?>">
+<form action="<?= url("ikajo/sale/create") ?>">
     <table>
         <tr>
             <td>Amount</td>
@@ -76,9 +76,10 @@
         </tr>
     </table>
 
-    <input type="hidden" name="success_url" value="<?=url('ikajo/success')?>" />
-    <input type="hidden" name="error_url" value="<?=url('ikajo/error')?>" />
-    <input type="submit" value="Make Payment" />
+    <input type="hidden" name="success_url" value="<?= url('ikajo/success') ?>"/>
+    <input type="hidden" name="error_url" value="<?= url('ikajo/error') ?>"/>
+    <input type="hidden" name="client_id" value="<?= cfg()->defaultClientId ?>"/>
+    <input type="submit" value="Make Payment"/>
 </form>
 </body>
 </html>

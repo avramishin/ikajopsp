@@ -40,11 +40,13 @@ class IkajoResponseHandler
     /**
      * @return mixed
      */
-    function getStatus(){
+    function getStatus()
+    {
         return $this->status;
     }
 
-    function getDeclineReason(){
+    function getDeclineReason()
+    {
         return $this->response->decline_reason;
     }
 
@@ -134,10 +136,11 @@ class IkajoResponseHandler
     protected function checkHash()
     {
         $order = $this->getOrder();
+        $client = $order->getClient();
 
         $hashParts = [
             strrev($order->payer_email),
-            cfg()->ikajo->clientPass,
+            $client->client_pass,
             $this->response->trans_id,
             $order->hash_p1
         ];

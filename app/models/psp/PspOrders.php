@@ -52,26 +52,35 @@ class PspOrders extends PspOrdersTable
         $this->update();
     }
 
+    /**
+     * @return PspClients
+     */
+    public function getClient()
+    {
+        return PspClients::get($this->client_id);
+    }
+
     public function getRemoteStatus()
     {
         $transId = $this->getTransId();
+        $client = $this->getClient();
 
         $hashParts = [
             strrev($this->payer_email),
-            cfg()->ikajo->clientPass,
+            $client->client_pass,
             $transId,
             $this->hash_p1
         ];
 
         $payload = [
             'action' => 'GET_TRANS_STATUS',
-            'client_key' => cfg()->ikajo->clientKey,
+            'client_key' => $client->client_key,
             'trans_id' => $transId,
             'hash' => md5(strtoupper(join('', $hashParts)))
         ];
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, cfg()->ikajo->billingUrl);
+        curl_setopt($ch, CURLOPT_URL, cfg()->billingUrl);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
