@@ -24,7 +24,7 @@ return [
 
     'secret' => '',
     'timezone' => 'UTC',
-    'billingUrl' => 'https://secure.payinspect.com/paymentgw/PayTechniqueCreditCardService.wsdl',
+    'billingUrl' => 'https://secure.payinspect.com/post/',
     'defaultClientId' => 'b4markets',
 
     /**
