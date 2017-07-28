@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3>Test Payment</h3>
-<form action="<?= url("ikajo/sale/create") ?>">
+<form action="<?= url("ikajo/sale/create") ?>" method="post">
     <table>
         <tr>
             <td>Amount</td>
