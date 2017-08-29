@@ -115,7 +115,7 @@ class IkajoResponseHandler
 
             if (!empty($this->response->descriptor)) {
                 $orderFlow->descriptor = $this->response->descriptor;
-            } elseif ($this->response->decline_reason) {
+            } elseif (!empty($this->response->decline_reason)) {
                 $orderFlow->descriptor = $this->response->decline_reason;
             } else {
                 $orderFlow->descriptor = 'NA';
