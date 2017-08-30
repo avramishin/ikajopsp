@@ -1,1 +1,1 @@
-Payment failed: <? echo r('msg', 'def')?>!
+Payment failed (e): <? echo r('msg', 'def')?>!
