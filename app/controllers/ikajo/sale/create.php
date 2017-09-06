@@ -20,6 +20,11 @@ try {
         throw new Exception('Client not found!');
     }
 
+    $userIp = $_SERVER['REMOTE_ADDR'];
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $userIp = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+
     /**
      * Create and insert order
      */
@@ -38,7 +43,7 @@ try {
     $order->payer_zip = r('payer_zip');
     $order->payer_email = r('payer_email');
     $order->payer_phone = r('payer_phone');
-    $order->payer_ip = $_SERVER['REMOTE_ADDR'];
+    $order->payer_ip = $userIp;
     $order->error_url = $errorUrl;
     $order->success_url = $successUrl;
     $order->status = 'INIT';
@@ -115,7 +120,7 @@ try {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-    curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2   );
+    curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 
 
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
